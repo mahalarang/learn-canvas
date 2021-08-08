@@ -1,0 +1,44 @@
+@use './mixins';
+
+.ttt__col {
+	&[data-marked='true'] {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+
+		.ttt__marker {
+			display: inline-block;
+			width: 80%;
+			height: 80%;
+			position: relative;
+
+			&[data-marker='x'] {
+				&::before,
+				&::after {
+					position: absolute;
+					top: 50%;
+					display: block;
+					content: '';
+					width: 100%;
+					height: 4px;
+					background-color: #999;
+				}
+
+				&::before {
+					transform: rotate(45deg);
+				}
+
+				&::after {
+					transform: rotate(-45deg);
+				}
+			}
+
+			&[data-marker='o'] {
+				border-radius: 50%;
+				border: 4px solid #999;
+				width: 70%;
+				height: 70%;
+			}
+		}
+	}
+}
