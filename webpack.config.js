@@ -3,8 +3,10 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const DashboardPlugin = require('webpack-dashboard/plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const sass = require('svelte-preprocess-sass').sass;
 
 const mode = process.env.NODE_ENV;
+const PORT = 7000;
 
 function getDevToolByEnv() {
 	switch (mode) {
@@ -38,6 +40,17 @@ const config = {
 				test: /\.js$/,
 				use: 'babel-loader',
 				exclude: [/node_modules/],
+			},
+			{
+				test: /\.svelte$/,
+				use: {
+					loader: 'svelte-loader',
+					options: {
+						preprocess: {
+							style: sass()
+						}
+					}
+				},
 			},
 			{
 				// Apply rule for .sass, .scss or .css files
@@ -99,23 +112,28 @@ const config = {
 	],
 
 	resolve: {
+		extensions: ['.mjs', '.js', '.svelte'],
 		alias: {
 			'@': path.resolve(__dirname, 'src/'),
 			Assets: path.resolve(__dirname, 'src/assets/'),
 			App: path.resolve(__dirname, 'src/app/'),
 			Utils: path.resolve(__dirname, 'src/utils/'),
+			Components: path.resolve(__dirname, 'src/components/'),
 		},
 	},
 };
 
 if (mode === 'development') {
 	config.devServer = {
-		// configuration for webpack-dev-server
-		contentBase: path.resolve(__dirname, 'src/public'), //source of static assets
-		port: 7000, // port to run dev-server
+		contentBase: path.resolve(__dirname, 'src/public'),
+		historyApiFallback: true,
+		hot: true,
+		port: PORT,
 	};
 
-	config.plugins.push(new DashboardPlugin());
+	config.plugins.push(
+		new DashboardPlugin()
+	);
 }
 
 if (mode === 'production') {
