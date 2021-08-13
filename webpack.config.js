@@ -48,6 +48,9 @@ const config = {
 					options: {
 						preprocess: {
 							style: sass()
+						},
+						compilerOptions: {
+							dev: true,
 						}
 					}
 				},

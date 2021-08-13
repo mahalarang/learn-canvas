@@ -2,7 +2,7 @@
 	import { Router, Route, Link } from 'svelte-routing';
 
 	const BubbleMove = () => import('./BubbleMove.svelte');
-	// import BubbleMove from './BubbleMove.svelte';
+	const Gravity = () => import('./Gravity.svelte');
 
 	let name = 'John Mahalarang';
 </script>
@@ -16,7 +16,7 @@
 			<Link to="bubble-move">Buble Move</Link>
 		</li>
 		<li class="menu-item">
-			<Link to="fireworks">Fireworks</Link>
+			<Link to="gravity">Gravity</Link>
 		</li>
 	</ul>
 
@@ -31,8 +31,10 @@
 			{/await}
 		</Route>
 
-		<Route path="fireworks">
-			<h1>This is Fireworks</h1>
+		<Route path="gravity">
+			{#await Gravity() then module}
+				<svelte:component this={module.default} />
+			{/await}
 		</Route>
 
 		<h3>Hello {name}</h3>
