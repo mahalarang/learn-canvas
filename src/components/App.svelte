@@ -47,7 +47,7 @@
 			{/await}
 		</Route>
 
-		<h3>Hello {name}</h3>
+		<h3>&copy; {new Date().getFullYear()} By {name}</h3>
 	</main>
 </Router>
 
