@@ -3,6 +3,7 @@
 
 	const BubbleMove = () => import('./BubbleMove.svelte');
 	const Gravity = () => import('./Gravity.svelte');
+	const Fireworks = () => import('./Fireworks.svelte');
 
 	let name = 'John Mahalarang';
 </script>
@@ -17,6 +18,9 @@
 		</li>
 		<li class="menu-item">
 			<Link to="gravity">Gravity</Link>
+		</li>
+		<li class="menu-item">
+			<Link to="fireworks">Fireworks</Link>
 		</li>
 	</ul>
 
@@ -33,6 +37,12 @@
 
 		<Route path="gravity">
 			{#await Gravity() then module}
+				<svelte:component this={module.default} />
+			{/await}
+		</Route>
+
+		<Route path="fireworks">
+			{#await Fireworks() then module}
 				<svelte:component this={module.default} />
 			{/await}
 		</Route>

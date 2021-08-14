@@ -8,6 +8,8 @@ export default class Circle {
   dy = 1;
   radius = 0;
   color = 'black';
+  velocity = { x: 1, y: 1 };
+  alpha = 1;
 
   constructor(ctx, vw, vh, radius) {
     this.ctx = ctx;
@@ -36,12 +38,18 @@ export default class Circle {
     return this;
   }
 
+  setVelocity(x, y) {
+    this.velocity = { x, y };
+    return this;
+  }
+
   draw() {
-    this.ctx.globalAlpha = 1;
+    this.ctx.globalAlpha = this.alpha;
     this.ctx.beginPath();
     this.ctx.arc(this.x, this.y, this.radius, Math.PI * 2, 0, false);
     this.ctx.fillStyle = this.color;
     this.ctx.fill();
+    this.ctx.closePath();
 
     return this;
   }

@@ -1,5 +1,9 @@
 class Random {
   int(min, max, fallback) {
+    if (typeof min === 'undefined') {
+      return Math.random();
+    }
+
     const random = Math.floor(Math.random() * (max - min + 1)) + min
 
     if (typeof fallback === 'function') {
